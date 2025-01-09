@@ -64,4 +64,10 @@ BEGIN
 END
 
 -- Test sorgusu
-EXEC sp_ViewDynamicTable 'Products' 
+EXEC sp_ViewDynamicTable 'Products'
+
+-- Products tablosunun yapısını getir
+EXEC sp_GetTableDesign 'Products'
+
+-- Customers tablosunun yapısını getir
+EXEC sp_GetTableDesign 'Customers' 

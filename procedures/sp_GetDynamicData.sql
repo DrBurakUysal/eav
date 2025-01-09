@@ -1,10 +1,46 @@
--- Dinamik tablo verilerini getirme prosedürü
-CREATE PROCEDURE sp_GetDynamicData
+/*
+* =============================================
+* Author:      Burak Uysal
+* Create date: 10.01.2025
+* Description: Dinamik tablo verilerini getirme prosedürü
+* =============================================
+*
+* Bu prosedür, dinamik tablodaki verileri pivot edilmiş şekilde getirir.
+* Where ve Order By koşulları dinamik olarak uygulanabilir.
+*
+* Parameters:
+*    @TableName - Verilerin getirileceği tablo adı
+*    @Where     - Filtreleme koşulu (opsiyonel)
+*    @OrderBy   - Sıralama koşulu (opsiyonel)
+*
+* Returns:
+*    Pivot edilmiş veri tablosu
+*
+* Example:
+*    -- Tüm verileri getir
+*    EXEC sp_GetDynamicData 'Products'
+*    
+*    -- Fiyatı 50000'den büyük ürünleri getir
+*    EXEC sp_GetDynamicData 
+*        @TableName = 'Products',
+*        @Where = 'dc2.ColumnName = ''Price'' AND dv2.DecimalValue > 50000'
+*    
+*    -- Ürün adına göre sıralı getir
+*    EXEC sp_GetDynamicData 
+*        @TableName = 'Products',
+*        @OrderBy = 'MAX(CASE WHEN dc.ColumnName = ''ProductName'' THEN dv.StringValue END)'
+*
+* Revision History:
+* 1.0 - 10.01.2025 - İlk versiyon
+*/
+CREATE OR ALTER PROCEDURE sp_GetDynamicData
     @TableName NVARCHAR(100),
-    @WhereClause NVARCHAR(MAX) = NULL,
-    @OrderByClause NVARCHAR(MAX) = NULL
+    @Where NVARCHAR(MAX) = NULL,
+    @OrderBy NVARCHAR(MAX) = NULL
 AS
 BEGIN
+    SET NOCOUNT ON;
+    
     -- Tablo kontrolü
     IF NOT EXISTS (SELECT 1 FROM DynamicTable WHERE TableName = @TableName AND IsActive = 1)
     BEGIN
@@ -46,8 +82,7 @@ BEGIN
     WHERE dv.TableId = ' + CAST(@TableId AS NVARCHAR) + '
     AND dv.IsActive = 1'
 
-    -- Where koşulu ekle
-    IF @WhereClause IS NOT NULL
+    IF @Where IS NOT NULL
     BEGIN
         SET @SQL = @SQL + ' AND EXISTS (
             SELECT 1 
@@ -55,22 +90,16 @@ BEGIN
             JOIN DynamicColumn dc2 ON dv2.ColumnId = dc2.ColumnId 
             WHERE dv2.TableId = dv.TableId 
             AND dv2.RowId = dv.RowId 
-            AND ' + @WhereClause + ')'
+            AND ' + @Where + ')'
     END
 
-    -- Group By ekle
     SET @SQL = @SQL + ' GROUP BY dv.RowId'
 
-    -- Order By ekle
-    IF @OrderByClause IS NOT NULL
-        SET @SQL = @SQL + ' ORDER BY ' + @OrderByClause
+    IF @OrderBy IS NOT NULL
+        SET @SQL = @SQL + ' ORDER BY ' + @OrderBy
     ELSE
         SET @SQL = @SQL + ' ORDER BY dv.RowId'
 
-    -- Debug için SQL'i göster (geliştirme aşamasında kullanışlı)
-    -- PRINT @SQL
-
-    -- Sorguyu çalıştır
     EXEC sp_executesql @SQL
 END
 GO 
