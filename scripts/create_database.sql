@@ -18,10 +18,16 @@ BEGIN
         IsActive BIT NOT NULL DEFAULT 1,
         CreateDate DATETIME NOT NULL DEFAULT GETDATE(),
         UpdateDate DATETIME NULL,
-        CONSTRAINT UQ_TableName UNIQUE (TableName) WHERE IsActive = 1
+        CONSTRAINT UQ_TableName UNIQUE (TableName)
     );
+    
+    CREATE UNIQUE INDEX IX_DynamicTable_ActiveName 
+    ON DynamicTable(TableName, IsActive)
+    WHERE IsActive = 1;
+    
     PRINT 'DynamicTable tablosu oluşturuldu.';
 END
+GO
 
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DynamicColumn')
 BEGIN
@@ -36,10 +42,16 @@ BEGIN
         CreateDate DATETIME NOT NULL DEFAULT GETDATE(),
         UpdateDate DATETIME NULL,
         CONSTRAINT FK_DynamicColumn_DynamicTable FOREIGN KEY (TableId) REFERENCES DynamicTable(TableId),
-        CONSTRAINT UQ_TableColumn UNIQUE (TableId, ColumnName) WHERE IsActive = 1
+        CONSTRAINT UQ_TableColumn UNIQUE (TableId, ColumnName)
     );
+    
+    CREATE UNIQUE INDEX IX_DynamicColumn_ActiveColumn 
+    ON DynamicColumn(TableId, ColumnName, IsActive)
+    WHERE IsActive = 1;
+    
     PRINT 'DynamicColumn tablosu oluşturuldu.';
 END
+GO
 
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DynamicValue')
 BEGIN
@@ -66,6 +78,7 @@ BEGIN
     
     PRINT 'DynamicValue tablosu oluşturuldu.';
 END
+GO
 
 -- UpdateDate alanını güncelleyecek triggerları oluştur
 CREATE OR ALTER TRIGGER tr_DynamicTable_Update
