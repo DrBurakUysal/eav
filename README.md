@@ -8,10 +8,14 @@
 - [Örnek Senaryolar](#örnek-senaryolar)
 - [API Referansı](#api-referansı)
 - [Performans Optimizasyonları](#performans-optimizasyonları)
+- [Lisans](#lisans)
 
 ## 🎯 Genel Bakış
 
-DynamicTable yapısı, geleneksel veritabanı tasarımının esnek olmayan yapısını aşmak için geliştirilmiş bir modeldir. Bu yapı, dinamik olarak yeni özellikler ekleyebilmenize ve farklı veri tiplerini yönetebilmenize olanak sağlar.
+DynamicTable yapısı, geleneksel veritabanı tasarımının esnek olmayan yapısını aşmak için geliştirilmiş bir modeldir. 
+Bu yapı, dinamik olarak yeni özellikler ekleyebilmenize ve farklı veri tiplerini yönetebilmenize olanak sağlar.
+
+Az miktarda veri saklayacağınız tüm tablolar için DynamicTable yapısını kullanabilirsiniz. Veri tabanınızda çok sayıda tablo olmasındansa, DynamicTable yapısını kullanarak daha az tablo sayısı ile çalışabilirsiniz. Yönetim kolaylığı ve performans için DynamicTable yapısı, mimarisi doğru kurulduğu sürece başarılı çalışmaktadır.
 
 ### 📊 Geleneksel vs DynamicTable Karşılaştırması
 
@@ -116,7 +120,7 @@ EXEC sp_GetDynamicData @TableName = 'Products', @Where = "Brand = 'Apple' AND Pr
 
 ## Örnek Senaryolar
 
-### Ürün Kataloğu
+### Ürünler Tablosu
 ```sql
 -- Ürünler tablosunu oluştur
 EXEC sp_CreateDynamicTable 'Products'
@@ -132,7 +136,7 @@ EXEC sp_AddDynamicValue 'Products', 'Price', 1, 64999.99
 EXEC sp_AddDynamicValue 'Products', 'Stock', 1, 100
 ```
 
-### Müşteri Yönetimi
+### Müşteriler Tablosu
 ```sql
 -- Müşteriler tablosunu oluştur
 EXEC sp_CreateDynamicTable 'Customers'
@@ -143,9 +147,7 @@ EXEC sp_AddDynamicColumn 'Customers', 'LastName', 'STRING', 1, 'Soyad'
 EXEC sp_AddDynamicColumn 'Customers', 'Email', 'STRING', 1, 'E-posta'
 ```
 
-## API Referansı
-
-### Stored Procedures
+## Prosedürler
 
 | Prosedür | Açıklama | Örnek Kullanım |
 |----------|----------|----------------|
