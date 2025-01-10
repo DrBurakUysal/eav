@@ -61,10 +61,17 @@ DynamicTable yapısı, geleneksel veritabanı tasarımının esnek olmayan yapı
 
 ## 🚀 Kurulum
 
-1. Sırasıyla aşağıdaki script'leri çalıştırın:
+1. DB ve Tabloların oluşturulması:
 - `scripts/create_database.sql`
 
-2. (Opsiyonel) Örnek verileri yükleyin:
+2. Prosedürlerin oluşturulması:
+- Tablo içindeki verileri getiren Prosedür: `/procedures/sp_GetDynamicData.sql`
+- Tablo oluşturan Prosedür: `/procedures/sp_CreateDynamicTable.sql`
+- Kolon oluşturan Prosedür: `/procedures/sp_AddDynamicColumn.sql`
+- Veri ekleme Prosedürü: `/procedures/sp_AddDynamicValue.sql`
+- Table Design Prosedürü: `/procedures/sp_GetTableDesign.sql`
+
+3. (Opsiyonel) Örnek verileri yükleyin:
 - `sample_data/sample_data.sql`
 - `sample_data/02_categories.sql`
 - `sample_data/03_customers.sql`
@@ -74,7 +81,9 @@ DynamicTable yapısı, geleneksel veritabanı tasarımının esnek olmayan yapı
 ## 📝 Kullanım Örnekleri
 
 ### 1. Yeni Bir Tablo Oluşturma
+```sql
 EXEC sp_CreateDynamicTable 'Products'
+```
 
 ### 2. Kolon Ekleme
 ```sql
