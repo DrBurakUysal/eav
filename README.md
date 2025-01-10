@@ -2,6 +2,7 @@
 
 ## 📚 İçindekiler
 - [Genel Bakış](#-genel-bakış)
+- [Ne İşe Yarar? — Neden Kullanmalıyım?](#-ne-işe-yarar-—-neden-kullanmalıyım)
 - [Mimari Yapı](#-mimari-yapı)
 - [Kurulum](#-kurulum)
 - [Kullanım Örnekleri](#-kullanım-örnekleri)
@@ -16,6 +17,14 @@ DynamicTable yapısı, geleneksel veritabanı tasarımının esnek olmayan yapı
 Bu yapı, dinamik olarak yeni özellikler ekleyebilmenize ve farklı veri tiplerini yönetebilmenize olanak sağlar.
 
 Az miktarda veri saklayacağınız tüm tablolar için DynamicTable yapısını kullanabilirsiniz. Veri tabanınızda çok sayıda tablo olmasındansa, DynamicTable yapısını kullanarak daha az tablo sayısı ile çalışabilirsiniz. Yönetim kolaylığı ve performans için DynamicTable yapısı, mimarisi doğru kurulduğu sürece başarılı çalışmaktadır.
+
+## ❓ Ne İşe Yarar? — Neden Kullanmalıyım?
+
+Az miktarda veri tutacak tablolara ihtiyacınız vardır ve bu veriler için devamlı küçük küçük tablolar oluşturmak, veritabanı tarafında dağıtık ve yönetilemez durumlar oluşturabilir.
+
+DynamicTable yapısı, 3 tablo ile verilerin tutulabilmesini sağlamaktadır.
+
+Dinamik bir şekilde tablo ve tablolara kolon eklememizi sağlar. Bu da client tarafından geliştirmeye ihtiyaç duymadan Tablo ve Kolonlarının eklenmesini sağlatır.
 
 ### 📊 Geleneksel vs DynamicTable Karşılaştırması
 
@@ -117,7 +126,17 @@ EXEC sp_GetDynamicData @TableName = 'Products', @Where = "Price > 5000"
 EXEC sp_GetDynamicData @TableName = 'Products', @Where = "Stock < 50", @OrderBy = "ProductName ASC"
 EXEC sp_GetDynamicData @TableName = 'Products', @Where = "Brand = 'Apple' AND Price > 30000 AND Stock > 0", @OrderBy = "Price DESC, ProductName ASC"
 ```
+![Veriler](docs/images/data.png)
 
+### 5. Tablo Yapısını Görüntüleme
+```sql
+-- Products tablosunun yapısını getir
+EXEC sp_GetTableDesign 'Products'
+
+-- Customers tablosunun yapısını getir
+EXEC sp_GetTableDesign 'Customers'
+```
+![Tablo Yapısı](docs/images/table_design.png)
 ## Örnek Senaryolar
 
 ### Ürünler Tablosu
