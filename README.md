@@ -1,4 +1,4 @@
-# 🎯 Dynamic Table Structure (DTS)
+# 🎯 Entity Attribute Value (EAV) / Dynamic Table Structure (DTS)
 
 ## 📚 İçindekiler
 - [Genel Bakış](#genel-bakış)
@@ -13,7 +13,7 @@ DynamicTable yapısı, geleneksel veritabanı tasarımının esnek olmayan yapı
 
 ### 📊 Geleneksel vs DynamicTable Karşılaştırması
 
-![Karşılaştırma](images/comparison.png)
+![Karşılaştırma](docs/images/comparison.png)
 
 ### Geleneksel vs DynamicTable Karşılaştırması
 
@@ -34,7 +34,7 @@ DynamicTable yapısı, geleneksel veritabanı tasarımının esnek olmayan yapı
 
 ### Tablolar ve İlişkiler:
 
-![Mimari](images/architecture.png)
+![Mimari](docs/images/eav_schema.png)
 
 #### 1. DynamicTable
 - TableId (PK)
