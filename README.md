@@ -1,11 +1,13 @@
 # 🎯 Entity Attribute Value (EAV) / Dynamic Table Structure (DTS)
 
 ## 📚 İçindekiler
-- [Genel Bakış](#genel-bakış)
-- [Mimari Yapı](#mimari-yapı)
-- [Kurulum](#kurulum)
-- [Kullanım Örnekleri](#kullanım-örnekleri)
-- [Performans İpuçları](#performans-ipuçları)
+- [Genel Bakış](#-genel-bakış)
+- [Mimari Yapı](#-mimari-yapı)
+- [Kurulum](#-kurulum)
+- [Kullanım Örnekleri](#-kullanım-örnekleri)
+- [Örnek Senaryolar](#örnek-senaryolar)
+- [API Referansı](#api-referansı)
+- [Performans Optimizasyonları](#performans-optimizasyonları)
 
 ## 🎯 Genel Bakış
 
