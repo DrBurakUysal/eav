@@ -61,13 +61,10 @@ DynamicTable yapısı, geleneksel veritabanı tasarımının esnek olmayan yapı
 
 ## 🚀 Kurulum
 
-1. Veritabanı scriptlerini çalıştırın: -- create_database.sql dosyasını çalıştırın
-
-2. Sırasıyla aşağıdaki script'leri çalıştırın:
+1. Sırasıyla aşağıdaki script'leri çalıştırın:
 - `scripts/create_database.sql`
-- `scripts/01_alter_tables.sql`
 
-3. (Opsiyonel) Örnek verileri yükleyin:
+2. (Opsiyonel) Örnek verileri yükleyin:
 - `sample_data/sample_data.sql`
 - `sample_data/02_categories.sql`
 - `sample_data/03_customers.sql`
