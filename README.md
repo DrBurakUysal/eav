@@ -109,6 +109,9 @@ EXEC sp_AddDynamicValue
 ### 4. Veri Sorgulama
 ```sql
 EXEC sp_GetDynamicData 'Products'
+EXEC sp_GetDynamicData @TableName = 'Products', @Where = "Price > 5000"
+EXEC sp_GetDynamicData @TableName = 'Products', @Where = "Stock < 50", @OrderBy = "ProductName ASC"
+EXEC sp_GetDynamicData @TableName = 'Products', @Where = "Brand = 'Apple' AND Price > 30000 AND Stock > 0", @OrderBy = "Price DESC, ProductName ASC"
 ```
 
 ## Örnek Senaryolar
